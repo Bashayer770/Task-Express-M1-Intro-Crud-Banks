@@ -4,12 +4,12 @@ const app = express();
 let accounts = require("./accounts");
 app.use(express.json());
 
-app.get("api/accounts", (req, res) => {
+app.get("/accounts", (req, res) => {
   console.log(req);
   return res.status(200).json(accounts);
 });
 
-app.post("/api/accounts", (req, res) => {
+app.post("/accounts", (req, res) => {
   const id = accounts[accounts.length - 1].id + 1;
   console.log(req.body);
   const newAcc = { id, ...req.body, funds: 0 };
@@ -17,7 +17,7 @@ app.post("/api/accounts", (req, res) => {
   return res.status(201).json(accounts);
 });
 
-app.delete("api/account/:accID", (req, res) => {
+app.delete("/account/:accID", (req, res) => {
   const { accID } = req.params;
   if (accounts.find((x) => x.id === +accID)) {
     accounts = accounts.filter((x) => x.id !== +accID);
@@ -27,7 +27,7 @@ app.delete("api/account/:accID", (req, res) => {
   }
 });
 
-app.put("api/account/:accID", (req, res) => {
+app.put("/account/:accID", (req, res) => {
   const { accID } = req.params;
   const findAcc = accounts.find((x) => x.id === +accID);
   if (findAcc) {
